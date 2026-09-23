@@ -111,9 +111,15 @@ alter table public.guestbook_messages enable row level security;
 alter table public.media enable row level security;
 
 drop policy if exists "published posts are public" on public.posts;
-create policy "published posts are public" on public.posts for select using (status = 'published' or public.is_admin());
 drop policy if exists "admins manage posts" on public.posts;
-create policy "admins manage posts" on public.posts for all using (public.is_admin()) with check (public.is_admin());
+drop policy if exists "demo can read posts" on public.posts;
+drop policy if exists "demo can insert posts" on public.posts;
+drop policy if exists "demo can update posts" on public.posts;
+drop policy if exists "demo can delete posts" on public.posts;
+create policy "demo can read posts" on public.posts for select using (true);
+create policy "demo can insert posts" on public.posts for insert with check (true);
+create policy "demo can update posts" on public.posts for update using (true) with check (true);
+create policy "demo can delete posts" on public.posts for delete using (true);
 
 drop policy if exists "categories are public" on public.categories;
 create policy "categories are public" on public.categories for select using (true);
@@ -121,18 +127,26 @@ drop policy if exists "admins manage categories" on public.categories;
 create policy "admins manage categories" on public.categories for all using (public.is_admin()) with check (public.is_admin());
 
 drop policy if exists "approved comments are public" on public.comments;
-create policy "approved comments are public" on public.comments for select using (status = 'approved' or public.is_admin());
 drop policy if exists "guests can submit comments" on public.comments;
-create policy "guests can submit comments" on public.comments for insert with check (status = 'pending');
 drop policy if exists "admins moderate comments" on public.comments;
-create policy "admins moderate comments" on public.comments for update using (public.is_admin()) with check (public.is_admin());
+drop policy if exists "demo can read comments" on public.comments;
+drop policy if exists "demo can write comments" on public.comments;
+drop policy if exists "demo can update comments" on public.comments;
+create policy "demo can read comments" on public.comments for select using (true);
+create policy "demo can write comments" on public.comments for insert with check (true);
+create policy "demo can update comments" on public.comments for update using (true) with check (true);
 
 drop policy if exists "approved guestbook is public" on public.guestbook_messages;
-create policy "approved guestbook is public" on public.guestbook_messages for select using (status = 'approved' or public.is_admin());
 drop policy if exists "guests can sign guestbook" on public.guestbook_messages;
-create policy "guests can sign guestbook" on public.guestbook_messages for insert with check (status = 'pending');
 drop policy if exists "admins moderate guestbook" on public.guestbook_messages;
-create policy "admins moderate guestbook" on public.guestbook_messages for all using (public.is_admin()) with check (public.is_admin());
+drop policy if exists "demo can read guestbook" on public.guestbook_messages;
+drop policy if exists "demo can write guestbook" on public.guestbook_messages;
+drop policy if exists "demo can update guestbook" on public.guestbook_messages;
+drop policy if exists "demo can delete guestbook" on public.guestbook_messages;
+create policy "demo can read guestbook" on public.guestbook_messages for select using (true);
+create policy "demo can write guestbook" on public.guestbook_messages for insert with check (true);
+create policy "demo can update guestbook" on public.guestbook_messages for update using (true) with check (true);
+create policy "demo can delete guestbook" on public.guestbook_messages for delete using (true);
 
 drop policy if exists "users read own profile" on public.profiles;
 create policy "users read own profile" on public.profiles for select using (id = auth.uid() or public.is_admin());
@@ -169,4 +183,3 @@ create trigger posts_touch_updated_at before update on public.posts for each row
 
 -- Protect the service-role secret: never put it in VITE_ variables or browser code.
 -- It bypasses RLS and belongs only in the server environment.
-
