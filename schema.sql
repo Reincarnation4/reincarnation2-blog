@@ -30,6 +30,8 @@ create table if not exists public.posts (
   slug text not null unique,
   excerpt text not null default '',
   content text not null default '',
+  content_html text,
+  content_format text not null default 'plain',
   cover_url text,
   status text not null default 'draft' check (status in ('draft','published','archived')),
   featured boolean not null default false,
@@ -46,6 +48,9 @@ create table if not exists public.comments (
   guest_name text,
   guest_email text,
   body text not null check (char_length(body) between 1 and 2000),
+  body_html text,
+  body_plain text,
+  attachments jsonb not null default '[]'::jsonb,
   status text not null default 'pending' check (status in ('pending','approved','rejected')),
   created_at timestamptz not null default now()
 );
@@ -168,6 +173,8 @@ on conflict (id) do update set public = true;
  create policy "admins upload blog media" on storage.objects for insert with check (bucket_id = 'blog-media' and public.is_admin());
  drop policy if exists "admins delete blog media" on storage.objects;
  create policy "admins delete blog media" on storage.objects for delete using (bucket_id = 'blog-media' and public.is_admin());
+ drop policy if exists "demo can upload rich media" on storage.objects;
+ create policy "demo can upload rich media" on storage.objects for insert with check (bucket_id = 'blog-media' and (name like 'comments/%' or name like 'posts/%'));
 
 -- Seed the current five local demo posts after Auth is configured if desired.
 -- The app will also keep its local seed data until Supabase is connected.
