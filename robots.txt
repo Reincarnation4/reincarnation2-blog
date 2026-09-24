@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Sitemap: https://reincarnation4.github.io/reincarnation2-blog/sitemap.xml
