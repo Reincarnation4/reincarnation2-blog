@@ -1,0 +1,1 @@
+export function initNavigation(root=document){const menu=root.querySelector('[data-menu]'),nav=root.querySelector('[data-nav]');if(!menu||!nav)return;menu.addEventListener('click',()=>{const open=nav.classList.toggle('open');menu.setAttribute('aria-expanded',String(open))});nav.addEventListener('click',event=>{if(event.target.closest('a'))nav.classList.remove('open')})}

@@ -1,0 +1,2 @@
+:root{--bg:#f4f1e9;--surface:#fffdf8;--surface2:#e9e7dd;--ink:#17211f;--muted:#6e7771;--line:#d7d6cc;--accent:#b9462f;--accent-soft:#f3ddd5;--green:#2d6a5c;--gold:#d5a53b;--shadow:0 18px 50px #18211f12;--serif:'Noto Serif SC',Georgia,serif;--sans:'Manrope',system-ui,sans-serif;--mono:'DM Mono',monospace;--ease:cubic-bezier(.23,1,.32,1)}
+[data-theme=dark]{--bg:#101412;--surface:#171c19;--surface2:#202722;--ink:#e8e4d9;--muted:#8d938d;--line:#303632;--accent:#d15a42;--accent-soft:#3a2823;--green:#8bc4a9;--gold:#e3bc62;--shadow:0 18px 50px #0005}

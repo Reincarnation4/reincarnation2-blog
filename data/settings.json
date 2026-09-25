@@ -1,0 +1,9 @@
+{
+  "siteName": "reincarnation.log",
+  "tagline": "给生活留一块可以返回的地方。",
+  "year": "2026",
+  "status": "WRITING",
+  "description": "一个关于想法、代码、图像和长期存档的个人数字档案。",
+  "repository": "https://github.com/Reincarnation4/reincarnation2-blog",
+  "theme": {"light": "paper archive", "dark": "night archive"}
+}

@@ -1,0 +1,6 @@
+[
+  {"slug":"essay","name":"随笔","description":"记录日常和未归类的念头"},
+  {"slug":"tech","name":"技术","description":"代码、工具和重构记录"},
+  {"slug":"life","name":"生活","description":"生活观察与个人片段"},
+  {"slug":"method","name":"方法","description":"把复杂问题写下来的方法"}
+]
